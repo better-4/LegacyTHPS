@@ -1,5 +1,6 @@
 ﻿using System;
-using System.Windows.Forms;
+using System.IO;
+using LegacyThps.QScript;
 
 namespace ThpsQScriptEd
 {
@@ -8,46 +9,43 @@ namespace ThpsQScriptEd
         [STAThread]
         static void Main(string[] args)
         {
-            Application.EnableVisualStyles();
-            Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new MainForm(args.Length > 0 ? args[0] : ""));
+            Console.WriteLine("ThpsQScriptEd, dcxdemo");
+
+            if (args.Length != 2)
+            {
+                Console.WriteLine("usage: THPSQScriptEd.exe {input} {output}");
+                return;
+            }
+
+            string inputPath = args[0];
+            string outputPath = args[1];
+
+            if (!File.Exists(inputPath)) {
+                Console.WriteLine($"file not found: {inputPath}");
+                return;
+            }
+
+            SymbolCache.Create();
+            QBuilder.Init();
+
+            Directory.CreateDirectory(Directory.GetParent(outputPath).FullName);
+
+            switch (Path.GetExtension(args[0].ToUpper()))
+            {
+                case ".Q":
+                    QBuilder.Tokenizer_ParseText(File.ReadAllText(inputPath));
+                    QBuilder.Save(outputPath);
+                    break;
+
+                case ".QB":
+                    QBuilder.ParseFile(inputPath);
+                    File.WriteAllText(outputPath, QBuilder.GetSource(false));
+                    break;
+
+                default:
+                    break;
+            }
         }
+
     }
 }
-
-// cmd 
-
-/* 
-        [DllImport("kernel32")]
-    static extern bool AllocConsole();
-
-
-                AllocConsole();
-    Console.WriteLine("ThpsQScriptEd, dcxdemo");
-
-    if (!File.Exists(args[0]))
-    {
-        Console.WriteLine("Bad file.");
-        return;
-    }
-
-    SymbolCache.Create();
-    QBuilder.Init();
-
-    switch (Path.GetExtension(args[0].ToUpper()))
-    {
-        case ".Q":
-            QBuilder.Compile(File.ReadAllText(args[0]));
-            QBuilder.SaveChunks(Path.ChangeExtension(args[0], ".qb"));
-            break;
-
-        case ".QB":
-            QBuilder.LoadCompiledScript(args[0]);
-            File.WriteAllText(Path.ChangeExtension(args[0], ".q"), QBuilder.GetSource(false));
-            break;
-
-        default:
-            break;
-    }
-
- */
