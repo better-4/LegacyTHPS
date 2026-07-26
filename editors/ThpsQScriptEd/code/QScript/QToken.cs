@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Numerics;
-using System.Windows.Forms;
 using ThpsQScriptEd;
 using ThpsQScriptEd.Properties;
 
@@ -365,7 +364,7 @@ namespace LegacyThps.QScript
                         return 1 + 4 + ptrs.Count * 2 + ptrs.Count * 4;
 
                 case DataGroup.Unknown:
-                    MessageBox.Show($"Unknown data group! {tokenType.Group} at {QBuilder.lineNumber}");
+                    MainForm.WarnUser($"Unknown data group! {tokenType.Group} at {QBuilder.lineNumber}");
                     return 1;
 
                 case DataGroup.Empty:

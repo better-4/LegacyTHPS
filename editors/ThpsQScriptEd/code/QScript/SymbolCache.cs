@@ -37,9 +37,10 @@ namespace LegacyThps.QScript
 
         public static void LoadCFuncs()
         {
-            LoadCFuncs("data\\exefuncs.txt");
-            LoadCFuncs("data\\exefuncs_th4.txt");
-            LoadCFuncs("data\\exefuncs_ug1.txt");
+            var dataDir = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "data");
+            LoadCFuncs(Path.Combine(dataDir, "exefuncs.txt"));
+            LoadCFuncs(Path.Combine(dataDir, "exefuncs_th4.txt"));
+            LoadCFuncs(Path.Combine(dataDir, "exefuncs_ug1.txt"));
         }
 
         public static void LoadCFuncs(string filename)

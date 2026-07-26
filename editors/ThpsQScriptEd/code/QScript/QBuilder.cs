@@ -368,7 +368,7 @@ namespace LegacyThps.QScript
         /// </summary>
         public static void Tokenizer_LoadTokenTypes()
         {
-            string filename = $"{AppDomain.CurrentDomain.BaseDirectory}\\data\\qScript_def.xml";
+            string filename = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "data", "qScript_def.xml");
 
             if (!File.Exists(filename))
             {
