@@ -8,15 +8,12 @@
     <AssemblyName>ThpsQScriptEd</AssemblyName>
     <StartupObject>ThpsQScriptEd.Program</StartupObject>
 
-    <!-- Keep the hand-maintained Properties\AssemblyInfo.cs. -->
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
 
-    <!-- Legacy code: keep the original C# semantics, no implicit usings. -->
     <Nullable>disable</Nullable>
     <ImplicitUsings>disable</ImplicitUsings>
   </PropertyGroup>
 
-  <!-- Data files loaded at runtime; must sit next to the executable. -->
   <ItemGroup>
     <Content Include="data\exefuncs.txt" CopyToOutputDirectory="PreserveNewest" />
     <Content Include="data\exefuncs_th4.txt" CopyToOutputDirectory="PreserveNewest" />
