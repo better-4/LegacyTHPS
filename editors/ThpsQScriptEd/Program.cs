@@ -69,18 +69,20 @@ namespace ThpsQScriptEd
 
             Directory.CreateDirectory(Directory.GetParent(outputDir).FullName);
 
-            foreach (string inputPath in Directory.GetFiles(inputDir)) {
-                string outputPath = Path.Join(outputDir, Path.GetFileName(inputPath));
-
+            foreach (string inputPath in Directory.GetFiles(inputDir))
+            {
+                string outputPath;
                 switch (Path.GetExtension(inputPath.ToUpper()))
                 {
                     case ".Q":
+                        outputPath = Path.Join(outputDir, Path.GetFileName(Path.ChangeExtension(inputPath, "qb")));
                         Console.WriteLine($"Compiling {inputPath} to {outputPath}");
                         QBuilder.Tokenizer_ParseText(File.ReadAllText(inputPath));
                         QBuilder.Save(outputPath);
                         break;
 
                     case ".QB":
+                        outputPath = Path.Join(outputDir, Path.GetFileName(Path.ChangeExtension(inputPath, "q")));
                         Console.WriteLine($"Decompiling {inputPath} to {outputPath}");
                         QBuilder.ParseFile(inputPath);
                         File.WriteAllText(outputPath, QBuilder.GetSource(false));
