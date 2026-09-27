@@ -55,6 +55,8 @@ namespace ThpsQScriptEd
                 return;
             }
 
+            System.Threading.Thread.CurrentThread.CurrentCulture = System.Globalization.CultureInfo.GetCultureInfo("en-US");
+
             string inputDir = args[0];
             string outputDir = args[1];
 
